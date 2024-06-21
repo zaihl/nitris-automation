@@ -5,7 +5,7 @@ import os from "os";
 
 chromium.use(stealth());
 
-async function getMidSemSeating(username, password) {
+async function getMidSemSeating(username, password, bar) {
   const browser = await chromium.launch({
     headless: true,
     args: ["--no-sandbox", "--disable-setuid-sandbox", "--incognito"],

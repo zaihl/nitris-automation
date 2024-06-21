@@ -5,7 +5,7 @@ import os from "os";
 
 chromium.use(stealth());
 
-async function getPyqs(username, password) {
+async function getPyqs(username, password, bar) {
   const browser = await chromium.launch({
     headless: true,
     args: ["--no-sandbox", "--disable-setuid-sandbox", "--incognito"],

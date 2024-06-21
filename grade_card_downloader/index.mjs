@@ -5,7 +5,7 @@ import os from "os";
 
 chromium.use(stealth());
 
-async function getGradeCard(username, password) {
+async function getGradeCard(username, password, bar) {
   const browser = await chromium.launch({
     headless: true,
     args: ["--no-sandbox", "--disable-setuid-sandbox", "--incognito"],
@@ -18,8 +18,10 @@ async function getGradeCard(username, password) {
   const page = await context.newPage();
   await page.goto("https://eapplication.nitrkl.ac.in/nitris/Login.aspx");
 
+  bar.update(15);
+
   page.on("popup", async (popup) => {
-    const downloadDir = path.join(os.homedir(), "Downloads")
+    const downloadDir = path.join(os.homedir(), "Downloads");
     try {
       await popup.waitForLoadState("load");
       await popup.pdf({
@@ -29,8 +31,9 @@ async function getGradeCard(username, password) {
     } catch (error) {
       console.log("Error generating PDF:", error);
     } finally {
+      console.log("")
       console.log("Downloaded PDF to:");
-      console.log(downloadDir + "/nitris-grade-card.pdf");
+      console.log(path.join(downloadDir, "nitris-grade-card.pdf"));
       await browser.close();
     }
   });
@@ -43,24 +46,26 @@ async function getGradeCard(username, password) {
   await passwordInput.fill(password);
   await loginButton.click();
 
-  try {
-    await page.locator("#lblMsg").waitFor({state: 'visible', timeout: 5000})
-    console.log('username/password is incorrect')
-    await browser.close()
-  } catch (error) {
-    
-  }
+  bar.update(25)
 
-  await page.locator("text=Academic").click();
-  await page.locator("text=Examination").click();
-  await page.locator('text="Examination Results"').click();
-  await page.locator('text="View Grade Card"').click();
+  try {
+    await page.locator("#lblMsg").waitFor({ state: "visible", timeout: 5000 });
+    console.log("username/password is incorrect");
+    await browser.close();
+  } catch (error) {}
+
+  bar.update(45)
+
+  await page.locator("text=Academic").click(); bar.update(60);
+  await page.locator("text=Examination").click(); bar.update(70);
+  await page.locator('text="Examination Results"').click(); bar.update(80);
+  await page.locator('text="View Grade Card"').click(); bar.update(100);
+
 }
 
 async function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
-
 
 process.on("unhandledRejection", (error) => {
   console.error("Unhandled Promise Rejection");

@@ -6,7 +6,9 @@ import os from "os";
 
 chromium.use(stealth());
 
-async function getMidSemMarks(username, password) {
+let progress = 5;
+
+async function getMidSemMarks(username, password, bar) {
   const browser = await chromium.launch({
     headless: true,
     args: ["--no-sandbox", "--disable-setuid-sandbox", "--incognito"],
@@ -18,6 +20,8 @@ async function getMidSemMarks(username, password) {
   context.setDefaultTimeout(60000);
   const page = await context.newPage();
   await page.goto("https://eapplication.nitrkl.ac.in/nitris/Login.aspx");
+
+  bar.update(5);
 
   const usernameInput = await page.locator("#txtUserName");
   const passwordInput = await page.locator("#txtPassword");
@@ -31,9 +35,9 @@ async function getMidSemMarks(username, password) {
     await page.locator("#lblMsg").waitFor({ state: "visible", timeout: 5000 });
     console.log("username/password is incorrect");
     await browser.close();
-  } catch (error) {
+  } catch (error) {}
 
-  }
+  bar.update(15);
 
   await page.locator("text=Academic").click();
   await page.locator("text=Examination").click();
@@ -42,23 +46,27 @@ async function getMidSemMarks(username, password) {
 
   await page.waitForLoadState("load");
 
+  bar.update(25);
+
   const yearMenu = await page.locator("select").nth(0);
   const semMenu = await page.locator("select").nth(1);
 
   const years = await yearMenu.locator("option");
   const semesters = await semMenu.locator("option");
 
-  await exploreOption(page, yearMenu, semMenu, years, semesters);
+  bar.update(35);
+  progress = 35
+
+  await exploreOption(page, yearMenu, semMenu, years, semesters, bar);
 
   await browser.close();
 }
-
 
 process.on("unhandledRejection", (error) => {
   console.error("Unhandled Promise Rejection");
 });
 
-async function exploreOption(page, yearMenu, semMenu, years, semesters) {
+async function exploreOption(page, yearMenu, semMenu, years, semesters, bar) {
   const yearsLength = await years.count();
   const semsLength = await semesters.count();
   const marksDir = path.join(os.homedir(), "Downloads", "mid-sem-marks");
@@ -80,10 +88,14 @@ async function exploreOption(page, yearMenu, semMenu, years, semesters) {
           path: `${marksDir}/${year}_${sem}.png`,
         });
       }
+      progress = progress + 5;
+      bar.update(progress);
     }
   }
-  console.log("Saved All files in: ")
-  console.log(marksDir)
+  bar.update(100);
+  bar.close();
+  console.log("Saved All files in: ");
+  console.log(marksDir);
 }
 
 async function delay(ms) {

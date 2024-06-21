@@ -64,7 +64,6 @@ To use the NITRIS Automation Tool, follow these steps:
    - Username: enter NITRIS username
    - Password: enter NITRIS password (safe, as stored on you own machine)
    - Choice: enter which automation you want to perform
-   - Confirmation: yes or no
   
 *Note that the program will ask you for username and password only for the first time. After that credentials will be cached locally.*
 

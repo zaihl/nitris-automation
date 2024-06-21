@@ -4,6 +4,14 @@ import { mid_sem } from "./mid_sem_results/index.mjs";
 import { seating_chart } from "./mid_sem_seating_chart/index.mjs";
 import { pyq } from "./pyq_downloader/index.mjs";
 import { getCredentials, setCredentials } from "./helper.mjs";
+import { SingleBar } from "cli-progress";
+
+const bar = new SingleBar({
+  format: "  {bar} {percentage}% | ETA: {eta}s | {value}/{total}",
+  barCompleteChar: "\u2588",
+  barIncompleteChar: "\u2591",
+  hideCursor: true,
+});
 
 export async function askUser() {
   const { username, password } = await getCredentials();
@@ -25,11 +33,6 @@ export async function askUser() {
       message: "Please select one of the following options:",
       choices: ["Grade Card Downloader", "Mid-sem Results Downloader", "Seating arrangement downloader", "PYQ Downloader"],
     },
-    {
-      type: "confirm",
-      name: "confirm",
-      message: "Are you sure?",
-    },
   ];
   if (username && password) {
     questions.splice(0, 2);
@@ -49,16 +52,24 @@ async function init() {
   try {
     if (choice.includes("Grade Card Downloader")) {
       console.log('executing, please wait...')
-      await grade_card(answers.username, answers.password);
+      bar.start(100, 0)
+      await grade_card(answers.username, answers.password, bar);
+      bar.stop()
     } else if (choice.includes("Mid-sem Results Downloader")) {
       console.log('executing, please wait...')
-      await mid_sem(answers.username, answers.password);
+      bar.start(100, 0)
+      await mid_sem(answers.username, answers.password, bar);
+      bar.stop()
     } else if (choice.includes("Seating arrangement downloader")) {
       console.log('executing, please wait...')
-      await seating_chart(answers.username, answers.password);
+      bar.start(100, 0)
+      await seating_chart(answers.username, answers.password, bar);
+      bar.stop()
     } else if (choice.includes("PYQ Downloader")) {
       console.log('executing, please wait...')
-      await pyq(answers.username, answers.password);
+      bar.start(100, 0)
+      await pyq(answers.username, answers.password, bar);
+      bar.stop()
     }
   } catch (error) {
     console.log("there was an error in ", choice);
@@ -69,6 +80,3 @@ async function init() {
 }
 
 init();
-
-
-
