@@ -4,13 +4,16 @@ Welcome to the NITRIS Automation Tool project! This tool is designed to streamli
 
 ## Table of Contents
 
-- [Description](#description)
-- [Features](#features)
-- [Technologies Used](#technologies-used)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
-- [License](#license)
+- [NITRIS Automation Tool](#nitris-automation-tool)
+  - [Table of Contents](#table-of-contents)
+  - [Description](#description)
+  - [Features](#features)
+  - [Technologies Used](#technologies-used)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Contributing](#contributing)
+  - [TODO](#todo)
+  - [License](#license)
 
 ## Description
 
@@ -51,21 +54,19 @@ To get started with the NITRIS Automation Tool, follow these steps:
 
 To use the NITRIS Automation Tool, follow these steps:
 
-1. **Move to the desired directory**
-
-    ```bash
-    cd grade_card_downloader
-    ```
-
-1. **Run the script:**
+1. **Run the program:**
 
    ```bash
-   node index.mjs
+   npm run dev
    ```
 
 2. **Follow the prompts:** The tool will ask you a series of questions to gather the necessary information to perform the automation tasks.
-
-   ![Example Usage](https://github.com/zaihl/nitris-automation/assets/109749616/2766636f-b60c-4652-ac4e-03bc6563e2cf)
+   - Username: enter NITRIS username
+   - Password: enter NITRIS password (safe, as stored on you own machine)
+   - Choice: enter which automation you want to perform
+   - Confirmation: yes or no
+  
+*Note that the program will ask you for username and password only for the first time. After that credentials will be cached locally.*
 
 
 ## Contributing
