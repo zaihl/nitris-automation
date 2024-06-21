@@ -93,6 +93,19 @@ We welcome contributions to enhance the functionality of the NITRIS Automation T
 
 5. **Open a pull request**
 
+## TODO
+
+- [ ] implement mid sem marks automation
+- [ ] implement seating chart automation
+- [ ] implement pyq downloads automation
+- [ ] implement more features
+- [ ] migrate to UI
+- [ ] migrate to Nextjs
+- [ ] incorporate react hook form
+- [ ] incorporate dynamic server side rendering
+- [ ] incorporate AWS/CMS, if needed
+- [ ] deploy website
+
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
