@@ -19,11 +19,13 @@ Welcome to the NITRIS Automation Tool project! This tool is designed to streamli
 
 The NITRIS portal is known for its slow loading times, often taking more than 2 minutes on an ideal day and over 5 minutes during busy periods. This project aims to mitigate these issues by automating tasks on the NITRIS website. Currently, the tool supports the following functionality: 
 
-- **Grade Card Download Automation**: Quickly download your grade card by simply providing the necessary details.
+- **Grade Card Download Automation**
+- **Mid-sem Marks Download Automation**
 
 ## Features
 
 - **Grade Card Download Automation**: Automatically navigates through the NITRIS website to download your grade card.
+- **Mid-Sem Marks Download Automation**: Automatically navigates through the NITRIS website to download your mid-semester marks of all your semesters.
 
 More features will be added in future updates to further enhance the automation capabilities of this tool.
 
@@ -31,6 +33,7 @@ More features will be added in future updates to further enhance the automation 
 
 - [Playwright](https://playwright.dev/) - For web automation.
 - [Inquirer.js](https://www.npmjs.com/package/inquirer) - For prompting the user with relevant questions.
+- [cli-progress](https://www.npmjs.com/package/cli-progress) - For progressive loading in the terminal.
 
 ## Installation
 
@@ -95,9 +98,12 @@ We welcome contributions to enhance the functionality of the NITRIS Automation T
 
 ## TODO
 
-- [ ] implement mid sem marks automation
+- [x] implement grade card download automation
+- [x] implement mid sem marks automation
 - [ ] implement seating chart automation
 - [ ] implement pyq downloads automation
+- [x] central control for all automations
+- [x] implement loading bar
 - [ ] implement more features
 - [ ] migrate to UI
 - [ ] migrate to Nextjs
