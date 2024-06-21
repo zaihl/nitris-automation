@@ -95,9 +95,11 @@ We welcome contributions to enhance the functionality of the NITRIS Automation T
 
 ## TODO
 
-- [ ] implement mid sem marks automation
+- [x] implement mid sem marks automation
 - [ ] implement seating chart automation
 - [ ] implement pyq downloads automation
+- [x] central control for all automations
+- [x] implement loading bar
 - [ ] implement more features
 - [ ] migrate to UI
 - [ ] migrate to Nextjs
