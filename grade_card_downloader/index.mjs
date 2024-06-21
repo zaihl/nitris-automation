@@ -1,4 +1,3 @@
-import { askUser } from "./inquiry.mjs";
 import { chromium } from "playwright-extra";
 import stealth from "puppeteer-extra-plugin-stealth";
 import path from "path";
@@ -6,8 +5,7 @@ import os from "os";
 
 chromium.use(stealth());
 
-const { username, password } = await askUser();
-async function getGradeCard() {
+async function getGradeCard(username, password) {
   const browser = await chromium.launch({
     headless: true,
     args: ["--no-sandbox", "--disable-setuid-sandbox", "--incognito"],
@@ -45,13 +43,12 @@ async function getGradeCard() {
   await passwordInput.fill(password);
   await loginButton.click();
 
-  console.log('checking password')
   try {
     await page.locator("#lblMsg").waitFor({state: 'visible', timeout: 5000})
     console.log('username/password is incorrect')
     await browser.close()
   } catch (error) {
-    console.log('password is correct')
+    
   }
 
   await page.locator("text=Academic").click();
@@ -64,14 +61,9 @@ async function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-try {
-  await getGradeCard();
-} catch (error) {
-  console.log('website did not load')
-} finally {
-  
-}
 
 process.on("unhandledRejection", (error) => {
   console.error("Unhandled Promise Rejection");
 });
+
+export const grade_card = getGradeCard;

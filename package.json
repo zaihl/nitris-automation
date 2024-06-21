@@ -1,10 +1,10 @@
 {
-  "name": "testing",
+  "name": "nitris-automation",
   "version": "1.0.0",
-  "description": "",
+  "description": "automating boring tasks on the nitris portal, to make your life less stressful",
   "main": "inquiry.js",
   "scripts": {
-    "test": "node ./grade_card_downloader/index.mjs"
+    "dev": "node ./inquiry.mjs"
   },
   "keywords": [],
   "author": "",

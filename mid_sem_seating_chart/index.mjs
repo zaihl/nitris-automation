@@ -5,10 +5,9 @@ import os from "os";
 
 chromium.use(stealth());
 
-const { username, password } = {username: "", password: ""}
-async function getGradeCard() {
+async function getMidSemSeating(username, password) {
   const browser = await chromium.launch({
-    headless: false,
+    headless: true,
     args: ["--no-sandbox", "--disable-setuid-sandbox", "--incognito"],
   });
 
@@ -33,14 +32,13 @@ async function getGradeCard() {
     console.log("username/password is incorrect");
     await browser.close();
   } catch (error) {
-    console.log("password is correct");
+
   }
 
   await page.locator("text=Academic").click();
   await page.locator("text=Examination").click();
   await page.locator('text="Examination Seating Chart"').click();
   await page.locator('text="Mid Semester"').click();
-  console.log('in examination section')
 
   let yearMenu = await page.locator('select')
   await yearMenu.selectOption({index: 1})
@@ -67,14 +65,9 @@ async function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-try {
-  await getGradeCard();
-} catch (error) {
-  console.log(error);
-} finally {
-  console.log("done executing the script")
-}
 
 process.on("unhandledRejection", (error) => {
   console.error("Unhandled Promise Rejection");
 });
+
+export const seating_chart = getMidSemSeating;

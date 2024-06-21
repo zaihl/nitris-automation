@@ -5,8 +5,7 @@ import os from "os";
 
 chromium.use(stealth());
 
-const { username, password } = {username: "", password: ""}
-async function getGradeCard() {
+async function getPyqs(username, password) {
   const browser = await chromium.launch({
     headless: true,
     args: ["--no-sandbox", "--disable-setuid-sandbox", "--incognito"],
@@ -28,10 +27,7 @@ async function getGradeCard() {
         format: "A4",
       });
     } catch (error) {
-      console.log("Error generating PDF:", error);
     } finally {
-      console.log("Downloaded PDF to:");
-      console.log(downloadDir + "/nitris-grade-card.pdf");
       await browser.close();
     }
   });
@@ -44,13 +40,11 @@ async function getGradeCard() {
   await passwordInput.fill(password);
   await loginButton.click();
 
-  console.log("checking password");
   try {
     await page.locator("#lblMsg").waitFor({ state: "visible", timeout: 5000 });
     console.log("username/password is incorrect");
     await browser.close();
   } catch (error) {
-    console.log("password is correct");
   }
 
   await page.locator("text=Academic").click();
@@ -65,14 +59,9 @@ async function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
-try {
-  await getGradeCard();
-} catch (error) {
-  console.log(error);
-} finally {
-  console.log("done executing the script")
-}
-
 process.on("unhandledRejection", (error) => {
   console.error("Unhandled Promise Rejection");
 });
+
+
+export const pyq = getPyqs;

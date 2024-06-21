@@ -6,13 +6,9 @@ import os from "os";
 
 chromium.use(stealth());
 
-const { username, password } = {
-  username: "",
-  password: "",
-};
-async function getGradeCard() {
+async function getMidSemMarks(username, password) {
   const browser = await chromium.launch({
-    headless: false,
+    headless: true,
     args: ["--no-sandbox", "--disable-setuid-sandbox", "--incognito"],
   });
 
@@ -36,14 +32,13 @@ async function getGradeCard() {
     console.log("username/password is incorrect");
     await browser.close();
   } catch (error) {
-    console.log("password is correct");
+
   }
 
   await page.locator("text=Academic").click();
   await page.locator("text=Examination").click();
   await page.locator('text="Examination Results"').click();
   await page.locator('text="Mid Semester Mark"').click();
-  console.log("in examination section");
 
   await page.waitForLoadState("load");
 
@@ -58,13 +53,6 @@ async function getGradeCard() {
   await browser.close();
 }
 
-try {
-  await getGradeCard();
-} catch (error) {
-  console.log(error);
-} finally {
-  console.log("done executing the script");
-}
 
 process.on("unhandledRejection", (error) => {
   console.error("Unhandled Promise Rejection");
@@ -73,27 +61,33 @@ process.on("unhandledRejection", (error) => {
 async function exploreOption(page, yearMenu, semMenu, years, semesters) {
   const yearsLength = await years.count();
   const semsLength = await semesters.count();
+  const marksDir = path.join(os.homedir(), "Downloads", "mid-sem-marks");
   for (let i = 1; i < yearsLength; i++) {
     await yearMenu.selectOption({ index: i });
     for (let j = 1; j < semsLength; j++) {
       await semMenu.selectOption({ index: j });
       await page.waitForLoadState("load");
-      const sem = await semesters.nth(j).textContent()
-      const year = await years.nth(i).textContent()
+      const sem = await semesters.nth(j).textContent();
+      const year = await years.nth(i).textContent();
       const notFound = await page.locator(
-        "#ContentPlaceHolder2_ContentPlaceHolder1_mainContent_gvSubjects", 
-        { name: 'No Records Found....'}
+        "#ContentPlaceHolder2_ContentPlaceHolder1_mainContent_gvSubjects",
+        { name: "No Records Found...." }
       );
       const notFoundText = await notFound.textContent();
-      if (!notFoundText.includes('No Records Found....')) {
-        console.log("year:", year, "sem:", sem);
+      if (!notFoundText.includes("No Records Found....")) {
         await delay(3000);
-        await page.screenshot({ path: `./marks/${year}_${sem}.png` });
+        await page.screenshot({
+          path: `${marksDir}/${year}_${sem}.png`,
+        });
       }
     }
   }
+  console.log("Saved All files in: ")
+  console.log(marksDir)
 }
 
 async function delay(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+export const mid_sem = getMidSemMarks;
