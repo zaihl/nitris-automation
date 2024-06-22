@@ -22,6 +22,9 @@ The NITRIS portal is known for its slow loading times, often taking more than 2 
 <<<<<<< HEAD
 - **Grade Card Download Automation**
 - **Mid-sem Marks Download Automation**
+=======
+- **Grade Card Download Automation**: Quickly download your grade card by simply providing the necessary details.
+>>>>>>> parent of d4e7e05 (Update README.md)
 
 ## Features
 
