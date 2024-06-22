@@ -4,14 +4,17 @@ import { mid_sem } from "./mid_sem_results/index.mjs";
 import { seating_chart } from "./mid_sem_seating_chart/index.mjs";
 import { pyq } from "./pyq_downloader/index.mjs";
 import { getCredentials, setCredentials } from "./helper.mjs";
-import { SingleBar } from "cli-progress";
+import  cliProgress from "cli-progress";
 
-const bar = new SingleBar({
-  format: "  {bar} {percentage}% | ETA: {eta}s | {value}/{total}",
-  barCompleteChar: "\u2588",
-  barIncompleteChar: "\u2591",
-  hideCursor: true,
-});
+const bar = new cliProgress.SingleBar(
+  {
+    format: "  {bar} {percentage}% | ETA: {eta}s | {value}/{total}",
+    barCompleteChar: "\u2588",
+    barIncompleteChar: "\u2591",
+    hideCursor: true,
+  },
+  cliProgress.Presets.shades_classic
+);
 
 export async function askUser() {
   const { username, password } = await getCredentials();
