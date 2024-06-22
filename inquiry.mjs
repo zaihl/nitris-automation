@@ -14,7 +14,7 @@ const bar = new cliProgress.SingleBar(
     hideCursor: true,
   },
   cliProgress.Presets.shades_classic
-);
+)
 
 export async function askUser() {
   const { username, password } = await getCredentials();
