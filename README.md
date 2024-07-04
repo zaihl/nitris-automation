@@ -19,7 +19,6 @@ Welcome to the NITRIS Automation Tool project! This tool is designed to streamli
 
 The NITRIS portal is known for its slow loading times, often taking more than 2 minutes on an ideal day and over 5 minutes during busy periods. This project aims to mitigate these issues by automating tasks on the NITRIS website. Currently, the tool supports the following functionality: 
 
-<<<<<<< 
 - **Grade Card Download Automation**
 - **Mid-sem Marks Download Automation**
 

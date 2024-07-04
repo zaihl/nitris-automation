@@ -1,7 +1,7 @@
 import inquirer from "inquirer";
 import { grade_card } from "./grade_card_downloader/index.mjs";
 import { mid_sem } from "./mid_sem_results/index.mjs";
-import { seating_chart } from "./mid_sem_seating_chart/index.mjs";
+import { seating_chart } from "./mid_end_seating_chart/index.mjs";
 import { pyq } from "./pyq_downloader/index.mjs";
 import { getCredentials, setCredentials } from "./helper.mjs";
 import  cliProgress from "cli-progress";

@@ -17,7 +17,7 @@ async function getMidSemMarks(username, password, bar) {
   const context = await browser.newContext({
     acceptDownloads: true,
   });
-  context.setDefaultTimeout(60000);
+  context.setDefaultTimeout(120000);
   const page = await context.newPage();
   await page.goto("https://eapplication.nitrkl.ac.in/nitris/Login.aspx");
 
@@ -55,7 +55,7 @@ async function getMidSemMarks(username, password, bar) {
   const semesters = await semMenu.locator("option");
 
   bar.update(35);
-  progress = 35
+  progress = 35;
 
   await exploreOption(page, yearMenu, semMenu, years, semesters, bar);
 

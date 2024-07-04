@@ -14,7 +14,7 @@ async function getPyqs(username, password, bar) {
   const context = await browser.newContext({
     acceptDownloads: true,
   });
-  context.setDefaultTimeout(60000);
+  context.setDefaultTimeout(120000);
   const page = await context.newPage();
   await page.goto("https://eapplication.nitrkl.ac.in/nitris/Login.aspx");
 
@@ -44,15 +44,14 @@ async function getPyqs(username, password, bar) {
     await page.locator("#lblMsg").waitFor({ state: "visible", timeout: 5000 });
     console.log("username/password is incorrect");
     await browser.close();
-  } catch (error) {
-  }
+  } catch (error) {}
 
   await page.locator("text=Academic").click();
   await page.locator("text=Examination").click();
-  await page.locator('text="Examination Results"').click();
-  await page.locator('text="View Grade Card"').click();
+  await page.locator('text="Previous Year Question Papers"').click();
+  await page.locator('text="View Question Paper"').click();
 
-  await browser.close()
+  await browser.close();
 }
 
 async function delay(ms) {
@@ -62,6 +61,5 @@ async function delay(ms) {
 process.on("unhandledRejection", (error) => {
   console.error("Unhandled Promise Rejection");
 });
-
 
 export const pyq = getPyqs;
