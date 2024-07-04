@@ -46,7 +46,18 @@ export async function askUser() {
   if (!username && !password) {
     await setCredentials(answers.username, answers.password);
   }
-    return answers;
+  if (answers.choice.includes("PYQ Downloader")) {
+    const followUp = [
+      {
+        type: "input",
+        name: "subject",
+        message: "Enter the subject code (eg: CS2001), or subject name (eg: Electrical Machines II) to download the PYQs:",
+      }
+    ]
+    const followUpAnswers = await inquirer.prompt(followUp);
+    answers.subject = followUpAnswers.subject;
+  } 
+  return answers;
 };
 
 async function init() {
@@ -71,7 +82,7 @@ async function init() {
     } else if (choice.includes("PYQ Downloader")) {
       console.log('executing, please wait...')
       bar.start(100, 0)
-      await pyq(answers.username, answers.password, bar);
+      await pyq(answers.username, answers.password, answers.subject, bar);
       bar.stop()
     }
   } catch (error) {

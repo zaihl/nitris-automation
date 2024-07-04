@@ -93,7 +93,7 @@ async function exploreOption(page, yearMenu, semMenu, years, semesters, bar) {
     }
   }
   bar.update(100);
-  bar.close();
+  bar.stop();
   console.log("Saved All files in: ");
   console.log(marksDir);
 }
