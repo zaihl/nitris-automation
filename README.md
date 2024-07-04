@@ -21,12 +21,17 @@ The NITRIS portal is known for its slow loading times, often taking more than 2 
 
 - **Grade Card Download Automation**
 - **Mid-sem Marks Download Automation**
+- **Seating Arrangement Download Automation**
+- **PYQ Download automation**
 
 
 ## Features
 
 - **Grade Card Download Automation**: Automatically navigates through the NITRIS website to download your grade card.
 - **Mid-Sem Marks Download Automation**: Automatically navigates through the NITRIS website to download your mid-semester marks of all your semesters.
+- **Seating Arrangement Download Automation**: Automatically navigates through the NITRIS website to download your seating arrangements of both your semesters.
+- **Mid-Sem Marks Download Automation**: Automatically navigates through the NITRIS website to download your ALL available PYQs of your selected subject.
+
 
 More features will be added in future updates to further enhance the automation capabilities of this tool.
 
